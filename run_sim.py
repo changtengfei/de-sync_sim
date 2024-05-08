@@ -1,5 +1,5 @@
-import label
-import scanner
+import tag
+import json
 import timeline_engine as te
 import propagation
 import time
@@ -11,40 +11,54 @@ def run_sim(config):
                         format='[exp_{0}][%(levelname)s]:%(message)s'.format(config['expId']),
                         level=logging.INFO)
 
-    print('run exp with {0} labels and {1} scanners'.format(config['num_label'], config['num_scanner']))
+    print('run exp with {0} tags'.format(config['num_tags']))
+    
+    # topology
+    with open(config['topology_file'], 'r') as topo:
+        topology = json.load(topo)
 
     # time enginee
-    te_instance = te.timelineEngine(config['num_label'] + config['num_scanner'])
+    te_instance = te.timelineEngine(config['num_tags'])
     te_instance.start()
 
-    # labels
-    label_list = []
-    for i in range(config['num_label']):
-        l = label.label(i, config['beacon_interval'], config['num_beacon_to_send'], config['rx_timeout'], te_instance)
-        label_list.append(l)
-        l.start()
-
-    # scanners
-    scanner_list = []
-    for i in range(config['num_scanner']):
-        s = scanner.scanner(i, te_instance)
-        scanner_list.append(s)
-        s.start()
+    # tags
+    tag_list = []
+    for i in range(config['num_tags']):
+        t = tag.tag(i, config['interval'], te_instance, topology)
+        tag_list.append(t)
+        t.start()
 
     # propagation
-    pg = propagation.propagation(te_instance, label_list, scanner_list)
+    pg = propagation.propagation(te_instance, tag_list, topology)
     pg.start()
 
-    # ---- running for a while
+    # ---- running for a while until full network established
+    
+    joined_tag_list = []
+    while len(joined_tag_list) != config['num_tags']:
+        time.sleep(1)
+        joined_tag_list = []
+        for t in tag_lists:
+            if t.get_rank()<t.MAX_RANK:
+                joined_tag_list.append(t)
+        print("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
+        
+    # ---- deactivate the root node
+    
+    for neighbor in topology[0]:
+        topology[0][neighbor] = 0
+        tag_list[neighbor].updateparent(0, tag.tag.MAX_RANK)
+    
+    # ---- wait until all tag de-sync or 1 hour
+    
     terminated_list = []
-    while len(terminated_list) != config['num_label']:
+    while len(terminated_list) != config['num_tags'] and (te_instance.next_event == NULL or (te_instance.next_event != NULL and te_instance.next_event.timestamp<3600)):
         time.sleep(1)
         terminated_list = []
-        for l in label_list:
-            terminated, t = l.getTerminatedTime()
-            if terminated is True or l.getNextEventTime()>5:
-                terminated_list.append(l)
-        print("[exp_{0}] {1} labels detected".format(config['expId'], len(terminated_list)))
+        for t in tag_list:
+            if t.get_rank() == t.MAX_RANK:
+                terminated_list.append(t)
+        print("[exp_{0}] {1} tags reached to max rank".format(config['expId'], len(terminated_list)))
 
     # --- terminating threads
 
@@ -54,75 +68,24 @@ def run_sim(config):
         pass
     print('propagation ends')
 
-    # labels
-    for l in label_list:
-        l.terminate()
-    print('labels ends')
-
-    # scanners
-    for s in scanner_list:
-        s.terminate()
-    print('scanners ends')
+    # tags
+    for t in tag_list:
+        t.terminate()
+    print('tags ends')
 
     te_instance.terminate()
     print('timeline ends')
 
-    # ======================= get result from each labels =====================
-
-    detected_label_list = []
-    numCollisons_list   = []
-    for l in label_list:
-        terminated, t = l.getTerminatedTime()
-        terminated, num_collisions = l.getNumCollisions()
-        if terminated:
-            detected_label_list.append((l.deviceId, t))
-            numCollisons_list.append(num_collisions)
-
-    detected_label_list.sort(key=lambda x: x[1])
-    for name, t in detected_label_list:
-        print("{0} detected at {1}".format(name, t))
+    # ======================= get result from each tags =====================
 
     # ==== summary
 
     result = {
         'expId': config['expId'],
-        'label_beacon_interval': 0,
-        'label_inter-beacon_interval': 0,
-        'label_numBeacon': 3,
-        'label_beacon_duration': 0.001,
-        'label_rx_timeout': 0.002,
-        'scanner_listen_duration': 0,
-        'time_to_detect_all': 0,
-        'number_of_collisions': 0
+        'time_to_desync'        : te_instance.next_event.timestamp,
     }
-
-    param_0, param_1, param_2, param_3, param_4 = label_list[0].getConfigurations()
-    print("======================= label configuration ========================")
-    print(
-        "label_numBeacon = {0:1} inter-beacon interval {1:4}s beacons interval {2:4}s beacon_duration {3:4} rx_timeout {4:4}".format(
-            param_0, param_1, param_2, param_3, param_4
-        )
-    )
-    result['label_beacon_interval'] = param_2
-    result['label_inter-beacon_interval'] = param_1
-    result['label_numBeacon'] = param_0
-
-    param_0, param_1, param_2 = scanner_list[0].getConfigurations()
-    print("\n======================= scanner configuration ======================")
-    print("numCh = {0:1} listen duration {1:4}s listen pause duration {2:4}s".format(
-            param_0, param_1, param_2
-        )
-    )
-    result['scanner_listen_duration'] = param_1
-
-    print("\n======================= Result =====================================")
-    print("{0} out of {1} labels are detected within {2} seconds".format(len(detected_label_list), config['num_label'],
-                                                                         detected_label_list[-1][1]))
-    print("{0} collisions are detected from {1} labels".format(sum(numCollisons_list), len(numCollisons_list)))
-
-    result['time_to_detect_all'] = detected_label_list[-1][1]
-
-    result['number_of_collisions'] = sum(numCollisons_list)
+    
+    print("exp ends at {0}s".format(result['time_to_desync']))
 
     return result
 
@@ -131,11 +94,9 @@ if __name__ == '__main__':
     config = {
         'expId': 0,
         'pid': 0,
-        'num_label': 500,
-        'num_scanner': 1,
-        'beacon_interval': 2,
-        'num_beacon_to_send': 3,
-        'rx_timeout': 0.002
+        'num_tags': 500,
+        'interval': 2,
+        'topology_file': "topology.json"
     }
     run_sim(config)
 

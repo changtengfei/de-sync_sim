@@ -2,8 +2,8 @@
 # This module implements a propagation model to disseminate message between radio devices.
 '''
 
-import label
-import scanner
+import tag
+import json
 import timeline_engine as te
 import threading
 
@@ -15,13 +15,13 @@ class propagation(threading.Thread):
 
     NAME    = 'propagation'
 
-    def __init__(self, timeline_engine, label_list, scanner_list):
+    def __init__(self, timeline_engine, tag_list, topology):
         
         self.timeline           = timeline_engine
-        self.label_list         = label_list
+        self.topology           = topology
+        self.tag_list           = tag_list
         
-        self.radioLock          = False
-        self.pkt_from_label     = None
+        self.pkt_from_tag       = None
         
         self.isRunning          = True
         
@@ -51,17 +51,15 @@ class propagation(threading.Thread):
             
             log.info('[{0}] Components process event {2} from {1} at time {3}'.format(self.NAME, latestEvent.deviceId, latestEvent.eventType, latestEvent.timestamp))
             
-            if latestEvent.eventType == te.event.EVENT_T_TX_S or latestEvent.eventType == te.event.EVENT_T_TX_E:
+            if latestEvent.eventType == te.event.EVENT_T_EB or latestEvent.eventType == te.event.EVENT_T_DIO:
             
                 log.info('Tx Event {1} from {0} notification to disseminate'.format(latestEvent.deviceId, latestEvent.eventType))
             
-                # notify all labels
-                for label in self.label_list:
-                    label.notify_rx_event(latestEvent)
+                # notify neighbors
                 
-                # notify all scanners
-                for scanner in self.scanner_list:
-                    scanner.notify_rx_event(latestEvent)
+                for neighbor in self.topology[lastestEvent.message[0]]:
+                    
+                    self.tag_list[neighbor].notify_rx_event(latestEvent)
 
             else:
                             

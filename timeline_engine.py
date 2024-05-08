@@ -18,23 +18,23 @@ log = logging.getLogger('timelineEngine')
 
 class event(object):
 
-    EVENT_T_EB        = 0
-    EVENT_T_DIO       = 1
-    EVENT_R_EB        = 2
-    EVENT_R_DIO       = 3
+    EVENT_T_EB           = 0
+    EVENT_T_DIO          = 1
+    EVENT_R_EB           = 3
+    EVENT_R_DIO          = 4
+    EVENT_N_DAGROOT_DOWN = 5
     
     EVENT_DEAD        = 99 # this is the last event before a radio terminate, will be in queue forever
     
     NAME                = 'event'
     
-    def __init__(self, timestamp, deviceId, eventType, channel):
+    def __init__(self, timestamp, deviceId, eventType, payload=[]):
         
         self.timestamp      = timestamp
         self.deviceId       = deviceId
         self.eventType      = eventType
-        self.channel        = channel
         
-        self.message        = [self.deviceId]
+        self.message        = [self.deviceId] + payload
         
         self.eventProcessed = threading.Event()
         
