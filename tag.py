@@ -27,6 +27,7 @@ class tag(threading.Thread):
     TX_RX_TURNAROUND_TIME       = 0.001
     
     MAX_RANK                    = 65536
+    DAGROOT_RANK                = 256
     NAME                        = "tag_{0}"
     
     def __init__(self, deviceId, interval, timeline_engine, topology):
@@ -41,7 +42,6 @@ class tag(threading.Thread):
         self.topology           = topology
         self.neighbor_rank      = {}
         
-        self.rank               = self.MAX_RANK
         self.parent             = None
         
         self.interval           = interval
@@ -51,6 +51,7 @@ class tag(threading.Thread):
         
         if self.deviceId == 0:
             self.isSynced       = True
+            self.rank           = self.DAGROOT_RANK
         else:
             self.isSynced       = False
             
@@ -68,7 +69,6 @@ class tag(threading.Thread):
     def terminate(self):
         
         self.next_event.eventProcessed.set()
-        self.daemon = False
         self.isRunning = False
         
     def getTerminatedTime(self):
@@ -169,7 +169,7 @@ class tag(threading.Thread):
                     self.isSynced = True
                     self.lastSynced = event.timestamp
                     
-                    log.info('[{0}] Synchronized to network at {1}!'.format(self.deviceId, event.timestamp))
+                    log.info('[tag_{0}] Synchronized to network at {1}!'.format(self.deviceId, event.timestamp))
                 
             else:
             
@@ -187,15 +187,18 @@ class tag(threading.Thread):
                         
                     if event.eventType == te.event.EVENT_T_DIO:
                     
+                        log.info('[tag_{0}] DIO received at {1}!'.format(self.deviceId, event.timestamp))
+                        
                         src, rank = self.rxPkt
                         self.updateparent(src, rank)
                         
-                        log.info('[tag_{0}] DIO received at {1}!'.format(self.deviceId, event.timestamp))
-                        
+                        log.info('[tag_{0}] Rank updated to {2} at {1}!'.format(self.deviceId, event.timestamp, self.rank))
+                                                
 
     def updateparent(self, src, rank):
     
-        pdr = self.topology[src][self.deviceId]
+        if len(self.topology[src])>0:
+            pdr = self.topology[src][self.deviceId]
     
         self.neighbor_rank[src] = rank + self.cost(pdr)
         self.neighbor_rank      = dict(sorted(self.neighbor_rank.items(), key=lambda item: item[1]))
@@ -223,8 +226,8 @@ if __name__ == '__main__':
 
     logging.config.fileConfig('logging.conf')
         
-    num_tags = 5
-    t = te.timelineEngine(num_tags)
+    num_tags    = 5
+    t           = te.timelineEngine(num_tags)
         
     tag_list = []
     for i in range(num_tags):

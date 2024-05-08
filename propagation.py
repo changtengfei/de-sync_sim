@@ -53,7 +53,7 @@ class propagation(threading.Thread):
             
             if latestEvent.eventType == te.event.EVENT_T_EB or latestEvent.eventType == te.event.EVENT_T_DIO:
             
-                log.info('Tx Event {1} from {0} notification to disseminate'.format(latestEvent.deviceId, latestEvent.eventType))
+                log.info('[{0}] Tx Event {1} from {0} notification to disseminate'.format(self.NAME, latestEvent.deviceId, latestEvent.eventType))
             
                 # notify neighbors
                 

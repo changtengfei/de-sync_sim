@@ -4,6 +4,8 @@ import timeline_engine as te
 import propagation
 import time
 import logging
+import logging.config
+log = logging.getLogger('root')
 
 def run_sim(config):
 
@@ -42,12 +44,14 @@ def run_sim(config):
     
     joined_tag_list = []
     while len(joined_tag_list) != config['num_tags']:
-        time.sleep(5)
+        time.sleep(1)
         joined_tag_list = []
         for t in tag_list:
+            print("rank ", t.get_rank())
             if t.get_rank()<t.MAX_RANK:
                 joined_tag_list.append(t)
-        print("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
+                
+        log.info("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
         
     # ---- deactivate the root node
     
@@ -58,13 +62,14 @@ def run_sim(config):
     # ---- wait until all tag de-sync or 1 hour
     
     terminated_list = []
-    while len(terminated_list) != config['num_tags'] and (te_instance.next_event == NULL or (te_instance.next_event != NULL and te_instance.next_event.timestamp<3600)):
-        time.sleep(5)
+    while len(terminated_list) != config['num_tags'] and (te_instance.next_event == None or (te_instance.next_event != None and te_instance.next_event.timestamp<3600)):
+        time.sleep(1)
         terminated_list = []
         for t in tag_list:
             if t.get_rank() == t.MAX_RANK:
+                print("t.get_rank()")
                 terminated_list.append(t)
-        print("[exp_{0}] {1} tags reached to max rank".format(config['expId'], len(terminated_list)))
+        log.info("[exp_{0}] {1} tags reached to max rank".format(config['expId'], len(terminated_list)))
 
     # --- terminating threads
 

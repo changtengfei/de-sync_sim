@@ -1,19 +1,27 @@
 import random
 import json
 
-# Create a sample network topology data with 10 nodes
-num_nodes = 2
-network_topology = {}
+def generate_network_topology(num_nodes, max_neighbors):
+    # Ensure each node has a symmetric link quality to its neighbors
+    topology = {i: {} for i in range(num_nodes)}
 
-# Generate network data
-for node_id in range(num_nodes):
-    # Each node will have between 1 to 3 neighbors randomly selected
-    num_neighbors = random.randint(1, 3)
-    neighbors = random.sample([n for n in range(0, num_nodes) if n != node_id], num_neighbors)
-    
-    # Create a dictionary of neighbors with link quality
-    link_quality = {neighbor: round(random.random(), 2) for neighbor in neighbors}
-    network_topology[node_id] = link_quality
+    for node in range(num_nodes):
+        # Randomly decide how many neighbors this node will have (at least one)
+        num_neighbors = random.randint(1, min(max_neighbors, num_nodes - 1))
+        neighbors = random.sample([n for n in range(num_nodes) if n != node], num_neighbors)
+
+        for neighbor in neighbors:
+            # Assign a random link quality
+            link_quality = round(random.uniform(0, 1), 2)
+            topology[node][neighbor] = link_quality
+            topology[neighbor][node] = link_quality  # Ensure symmetry
+
+    return topology
+
+# Example usage
+num_nodes = 2  # Number of nodes in the network
+max_neighbors = 1  # Maximum neighbors a node can have
+json_topology = generate_network_topology(num_nodes, max_neighbors)
 
 with open("topology.json", 'w') as json_file:
-    json.dump(network_topology, json_file, indent=4)
+    json.dump(json_topology, json_file, indent=4)
