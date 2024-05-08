@@ -57,7 +57,7 @@ class propagation(threading.Thread):
             
                 # notify neighbors
                 
-                for neighbor in self.topology[lastestEvent.message[0]]:
+                for neighbor in self.topology[latestEvent.message[0]].keys():
                     
                     self.tag_list[neighbor].notify_rx_event(latestEvent)
 

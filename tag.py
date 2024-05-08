@@ -15,24 +15,25 @@ import time
 import random
 import threading
 import timeline_engine as te
-import radio as r
-import lfsr_random as lr
 
 import logging
 log = logging.getLogger('tag')
 import logging.config
 
-class tag(r.radio, threading.Thread):
+class tag(threading.Thread):
      
     MAX_DESYNC_TIMEOUT          = 30
     DEAD_TIME                   = 99999999
     TX_RX_TURNAROUND_TIME       = 0.001
     
     MAX_RANK                    = 65536
-    
-    NAME                        = 'tag_{0}'
+    NAME                        = "tag_{0}"
     
     def __init__(self, deviceId, interval, timeline_engine, topology):
+    
+        # initialize the parent class
+        threading.Thread.__init__(self)
+        self.daemon = True
     
         self.deviceId           = deviceId
         self.name               = self.NAME.format(deviceId)
@@ -40,7 +41,8 @@ class tag(r.radio, threading.Thread):
         self.topology           = topology
         self.neighbor_rank      = {}
         
-        self.rank               = self.MAX_LINKCOST
+        self.rank               = self.MAX_RANK
+        self.parent             = None
         
         self.interval           = interval
         self.eb_interval        = 5*interval
@@ -62,12 +64,11 @@ class tag(r.radio, threading.Thread):
 
         self.terminatedTime     = self.DEAD_TIME
             
-        # initialize the parent class
-        threading.Thread.__init__(self)
         
     def terminate(self):
         
         self.next_event.eventProcessed.set()
+        self.daemon = False
         self.isRunning = False
         
     def getTerminatedTime(self):
@@ -85,6 +86,27 @@ class tag(r.radio, threading.Thread):
     def getConfigurations(self):
 
         return self.num_beacon_to_send
+        
+    def sending_pkt(self, eventType, payload=[]):
+        
+        # ---- sending pkt
+        self.next_event      = te.event(self.next_event_time, self.deviceId, eventType, payload)
+        self.next_event.eventProcessed.clear()
+        self.timeline.newEvent(self.next_event_time, self.next_event)
+        
+        if eventType == te.event.EVENT_T_EB:
+        
+            log.info('[tag_{0}] tx EB event generated at {1}!'.format(self.deviceId, self.next_event_time))
+            
+        elif eventType == te.event.EVENT_T_DIO:
+        
+            log.info('[tag_{0}] tx DIO event generated at {1}!'.format(self.deviceId, self.next_event_time))
+        
+        # wait until the event is processed
+        self.next_event.eventProcessed.wait()
+        if self.isRunning is False:
+            # stop here
+            return
 
     def run(self):
     
@@ -101,56 +123,34 @@ class tag(r.radio, threading.Thread):
                 self.dio_event_time = self.next_event_time + self.dio_interval + random.random()   
 
                 if self.eb_event_time>self.dio_event_time:
-                    self.next_event_time = self.eb_event_time
-                    diff_time = self.eb_event_time  -   self.dio_event_time
-                else:
                     self.next_event_time = self.dio_event_time
-                    diff_time = self.dio_event_time -   self.eb_event_time
-                
-                # ---- sending EB
-                self.next_event      = te.event(self.eb_event_time, self.deviceId, te.event.EVENT_T_EB)
-                self.next_event.eventProcessed.clear()
-                self.timeline.newEvent(self.next_event_time, self.next_event)
-                
-                log.info('[{0}] tx EB event generated at {1}!'.format(self.deviceId, self.next_event_time))
-                
-                # wait until the event is processed
-                self.next_event.eventProcessed.wait()
-                if self.isRunning is False:
-                    # stop here
-                    return
-                                                    
-                # ---- sending DIO
-                self.next_event_time += diff_time
-                self.next_event      = te.event(self.dio_event_time, self.deviceId, te.event.EVENT_T_DIO, [self.rank])
-                self.next_event.eventProcessed.clear()
-                self.timeline.newEvent(self.next_event_time, self.next_event)
-                
-                log.info('[{0}] tx DIO event generated at {1}!'.format(self.deviceId, self.next_event_time))
-                
-                # wait until the event is processed
-                self.next_event.eventProcessed.wait()
-                if self.isRunning is False:
-                    # stop here
-                    return
+                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank])
+                    self.next_event_time = self.eb_event_time
+                    self.sending_pkt(te.event.EVENT_T_EB)
+                else:
+                    self.next_event_time = self.eb_event_time
+                    self.sending_pkt(te.event.EVENT_T_EB)
+                    self.next_event_time = self.dio_event_time
+                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank])
                     
             else:
                 
-                # ==== this is Sensor
+                # ---- insert idle event
                 
-                if self.isSynced == False:
+                self.next_event      = te.event(self.next_event_time, self.deviceId, te.event.EVENT_IDLE)
+                self.next_event.eventProcessed.clear()
+                self.timeline.newEvent(self.next_event_time, self.next_event)
+                
+                log.info('[tag_{0}] listening for pkt at {1}!'.format(self.deviceId, self.next_event_time))
+                
+                # wait until the event is processed
+                self.next_event.eventProcessed.wait()
+                if self.isRunning is False:
+                    # stop here
+                    return
                     
-                    self.next_event      = te.event(self.eb_event_time, self.deviceId, te.event.EVENT_R_LISTEN)
-                    self.next_event.eventProcessed.clear()
-                    self.timeline.newEvent(self.next_event_time, self.next_event)
-                    
-                    log.info('[{0}] listening event generated at {1}!'.format(self.deviceId, self.next_event_time))
-                    
-                    # wait until the event is processed
-                    self.next_event.eventProcessed.wait()
-                    if self.isRunning is False:
-                        # stop here
-                        return
+                self.next_event_time += 10
+                
                     
     '''
     propagation rx event processing interface implementation
@@ -164,7 +164,7 @@ class tag(r.radio, threading.Thread):
             
             if self.isSynced == False:
                 
-                if event.eventType == te.event.EVENT_R_EB:
+                if event.eventType == te.event.EVENT_T_EB:
                 
                     self.isSynced = True
                     self.lastSynced = event.timestamp
@@ -177,7 +177,7 @@ class tag(r.radio, threading.Thread):
                     
                     self.isSynced = False
                     
-                    log.info('[{0}] Desynchronized from network at {1}!'.format(self.deviceId, event.timestamp))
+                    log.info('[tag_{0}] Desynchronized from network at {1}!'.format(self.deviceId, event.timestamp))
                     
                 else:
                 
@@ -185,23 +185,23 @@ class tag(r.radio, threading.Thread):
                     
                         self.lastSynced = event.timestamp
                         
-                    if event.eventType == te.event.EVENT_R_DIO:
+                    if event.eventType == te.event.EVENT_T_DIO:
                     
                         src, rank = self.rxPkt
                         self.updateparent(src, rank)
                         
-                        log.info('[{0}] DIO received at {1}!'.format(self.deviceId, event.timestamp))
+                        log.info('[tag_{0}] DIO received at {1}!'.format(self.deviceId, event.timestamp))
                         
 
     def updateparent(self, src, rank):
     
-        pdr = self.topology[self.deviceId][src]
+        pdr = self.topology[src][self.deviceId]
     
         self.neighbor_rank[src] = rank + self.cost(pdr)
         self.neighbor_rank      = dict(sorted(self.neighbor_rank.items(), key=lambda item: item[1]))
         
-        self.parent = self.neighbor_rank.keys()[0]
-        self.rank   = self.neighbor_rank.values()[0]
+        self.parent = list(self.neighbor_rank.keys())[0]
+        self.rank   = list(self.neighbor_rank.values())[0]
         if self.rank > self.MAX_RANK:
             self.rank = self.MAX_RANK
         

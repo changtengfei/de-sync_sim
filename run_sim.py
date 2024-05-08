@@ -10,12 +10,18 @@ def run_sim(config):
     logging.basicConfig(filename='simlog_exp_{0}.log'.format(config['expId']),
                         format='[exp_{0}][%(levelname)s]:%(message)s'.format(config['expId']),
                         level=logging.INFO)
-
-    print('run exp with {0} tags'.format(config['num_tags']))
     
     # topology
     with open(config['topology_file'], 'r') as topo:
         topology = json.load(topo)
+        config['num_tags'] = len(topology)
+        
+    topology = {int(outer_key): {int(inner_key): value for inner_key, value in inner_values.items()}
+                        for outer_key, inner_values in topology.items()}
+                        
+    print(topology)
+        
+    print('run exp with {0} tags'.format(config['num_tags']))            
 
     # time enginee
     te_instance = te.timelineEngine(config['num_tags'])
@@ -36,9 +42,9 @@ def run_sim(config):
     
     joined_tag_list = []
     while len(joined_tag_list) != config['num_tags']:
-        time.sleep(1)
+        time.sleep(5)
         joined_tag_list = []
-        for t in tag_lists:
+        for t in tag_list:
             if t.get_rank()<t.MAX_RANK:
                 joined_tag_list.append(t)
         print("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
@@ -53,7 +59,7 @@ def run_sim(config):
     
     terminated_list = []
     while len(terminated_list) != config['num_tags'] and (te_instance.next_event == NULL or (te_instance.next_event != NULL and te_instance.next_event.timestamp<3600)):
-        time.sleep(1)
+        time.sleep(5)
         terminated_list = []
         for t in tag_list:
             if t.get_rank() == t.MAX_RANK:
@@ -94,7 +100,6 @@ if __name__ == '__main__':
     config = {
         'expId': 0,
         'pid': 0,
-        'num_tags': 500,
         'interval': 2,
         'topology_file': "topology.json"
     }
