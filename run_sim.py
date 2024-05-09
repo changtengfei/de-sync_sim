@@ -95,7 +95,7 @@ def run_sim(config):
     # ==== summary
 
     result = {
-        'expId': config['expId'],
+        'expId'                 : config['expId'],
         'time_to_desync'        : te_instance.next_event.timestamp,
     }
     

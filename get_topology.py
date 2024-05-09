@@ -19,9 +19,9 @@ def generate_network_topology(num_nodes, max_neighbors):
     return topology
 
 # Example usage
-num_nodes = 100  # Number of nodes in the network
-max_neighbors = 50  # Maximum neighbors a node can have
-json_topology = generate_network_topology(num_nodes, max_neighbors)
+num_nodes       = 5  # Number of nodes in the network
+max_neighbors   = 1  # Maximum neighbors a node can have
+json_topology   = generate_network_topology(num_nodes, max_neighbors)
 
-with open("topology.json", 'w') as json_file:
+with open("topology_{0}_{1}.json".format(num_nodes, max_neighbors), 'w') as json_file:
     json.dump(json_topology, json_file, indent=4)
