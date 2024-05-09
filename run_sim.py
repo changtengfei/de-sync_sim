@@ -20,8 +20,6 @@ def run_sim(config):
         
     topology = {int(outer_key): {int(inner_key): value for inner_key, value in inner_values.items()}
                         for outer_key, inner_values in topology.items()}
-                        
-    print(topology)
         
     print('run exp with {0} tags'.format(config['num_tags']))            
 
@@ -56,11 +54,10 @@ def run_sim(config):
     
     te_instance.pause_engine(True)
     
-    tag_list[0].terminate()
     tag_list[0].rank = t.MAX_RANK
     for neighbor in topology[0]:
         topology[0][neighbor] = 0
-        tag_list[neighbor].updateparent(0, tag.tag.MAX_RANK)
+        tag_list[neighbor].updateparent(0, tag.tag.MAX_RANK, te_instance.next_event.timestamp)
         
     te_instance.pause_engine(False)
     
@@ -68,7 +65,7 @@ def run_sim(config):
     
     
     terminated_list = []
-    while len(terminated_list) != config['num_tags'] and (te_instance.next_event == None or (te_instance.next_event != None and te_instance.next_event.timestamp<3600)):
+    while len(terminated_list) != config['num_tags'] and (te_instance.next_event == None or (te_instance.next_event != None and te_instance.next_event.timestamp<7200)):
         time.sleep(config['wake_delay'])
         terminated_list = []
         for t in tag_list:
@@ -113,7 +110,7 @@ if __name__ == '__main__':
         'pid': 0,
         'interval': 2,
         'topology_file': "topology.json",
-        'wake_delay':   0.1,
+        'wake_delay':   1,
     }
     
     run_sim(config)

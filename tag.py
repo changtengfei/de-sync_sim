@@ -26,6 +26,8 @@ class tag(threading.Thread):
     DEAD_TIME                   = 99999999
     TX_RX_TURNAROUND_TIME       = 0.001
     
+    PARENT_UPDATE_PERIOD        = 60
+    
     MAX_RANK                    = 65536
     DAGROOT_RANK                = 256
     NAME                        = "tag_{0}"
@@ -43,11 +45,15 @@ class tag(threading.Thread):
         self.neighbor_rank      = {}
         
         self.parent             = None
+        self.gotParent          = False
         
         self.interval           = interval
         self.eb_interval        = 5*interval
         self.dio_interval       = 2*interval
         self.next_event_time    = 0
+        self.lastParentUpdateTime = 0
+        
+        self.lastSynced         = 0
         
         if self.deviceId == 0:
             self.isSynced       = True
@@ -55,8 +61,6 @@ class tag(threading.Thread):
         else:
             self.isSynced       = False
             self.rank           = self.MAX_RANK
-            
-        self.gotParent          = False
         
         self.next_event         = None
         self.isRunning          = True
@@ -138,6 +142,7 @@ class tag(threading.Thread):
                 
                 # ---- insert idle event
                 
+                self.lastSynced      = self.next_event_time
                 self.next_event      = te.event(self.next_event_time, self.deviceId, te.event.EVENT_IDLE)
                 self.next_event.eventProcessed.clear()
                 self.timeline.newEvent(self.next_event_time, self.next_event)
@@ -152,6 +157,13 @@ class tag(threading.Thread):
                     
                 self.next_event_time += 10
                 
+            # update parent if not hear DIO from parent for PARENT_UPDATE_PERIOD seconds
+            
+            if self.next_event_time - self.lastParentUpdateTime > self.PARENT_UPDATE_PERIOD:
+                
+                if self.gotParent:
+                    
+                    self.updateparent(self.parent, self.MAX_RANK, self.next_event_time)
                     
     '''
     propagation rx event processing interface implementation
@@ -176,27 +188,30 @@ class tag(threading.Thread):
             
                 if event.timestamp - self.lastSynced > self.MAX_DESYNC_TIMEOUT:
                     
-                    self.isSynced = False
+                    if self.deviceId != 0:
+                        self.isSynced = False
                     
-                    log.info('[tag_{0}] Desynchronized from network at {1}!'.format(self.deviceId, event.timestamp))
+                        log.info('[tag_{0}] Desynchronized from network at {1}!'.format(self.deviceId, event.timestamp))
                     
                 else:
                 
-                    if self.parent == None or self.parent == src:
+                    if self.parent == src:
                     
                         self.lastSynced = event.timestamp
                         
                     if event.eventType == te.event.EVENT_T_DIO:
                     
-                        log.info('[tag_{0}] DIO received at {1}!'.format(self.deviceId, event.timestamp))
+                        log.info('[tag_{0}] DIO received from {2} at {1}!'.format(self.deviceId, event.timestamp, src))
                         
                         src, rank = self.rxPkt
-                        self.updateparent(src, rank)
                         
-                        log.info('[tag_{0}] Rank updated to {2} at {1}!'.format(self.deviceId, event.timestamp, self.rank))
-                                                
-
-    def updateparent(self, src, rank):
+                        # donot process dio on dagroot
+                        if self.deviceId == 0:
+                            return
+                        
+                        self.updateparent(src, rank, event.timestamp)
+    
+    def updateparent(self, src, rank, timestamp):
     
         if len(self.topology[src])>0:
             pdr = self.topology[src][self.deviceId]
@@ -207,8 +222,14 @@ class tag(threading.Thread):
         self.parent = list(self.neighbor_rank.keys())[0]
         self.rank   = list(self.neighbor_rank.values())[0]
         if self.rank >= self.MAX_RANK:
-            self.rank = self.MAX_RANK
-            self.parent = None
+            self.rank       = self.MAX_RANK
+            self.parent     = None
+            self.gotParent  = False
+            log.info('[tag_{0}] Rank updated to {2} at {1}, none Parent!'.format(self.deviceId, timestamp, self.rank))
+        else:
+            self.gotParent            = True
+            self.lastParentUpdateTime = timestamp
+            log.info('[tag_{0}] Rank updated to {2} with parent {3} at {1}!'.format(self.deviceId, timestamp, self.rank, self.parent))
         
     def cost(self, pdr):
     
