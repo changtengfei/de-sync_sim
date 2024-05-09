@@ -48,6 +48,7 @@ class event(object):
 class timelineEngine(threading.Thread):
 
     NAME                = 'timelineEngine'
+    PAUSE_DELAY         = 0.1
 
     def __init__(self, queue_size):
     
@@ -64,6 +65,7 @@ class timelineEngine(threading.Thread):
         
         self.next_event     = None
         self.isRunning      = True
+        self.pause          = False
         
         # initialize the parent class
         threading.Thread.__init__(self)
@@ -126,6 +128,10 @@ class timelineEngine(threading.Thread):
         self.waitForEventProcDone.set()
         doneEvent.setEvent()
         
+    def pause_engine(self, pause_status):
+        
+        self.pause = pause_status
+        
     # ======================= private =========================================
         
     def run(self):
@@ -143,6 +149,9 @@ class timelineEngine(threading.Thread):
             
             # notif queue full
             self.QueueFullNotify.set()
+            
+            while self.pause:
+                time.sleep(self.PAUSE_DELAY)
                 
             # Queue is full, other thread needs to process at least one event in the queue to have timeline continue
             # set waitForEventProcDone when process is done.

@@ -54,6 +54,7 @@ class tag(threading.Thread):
             self.rank           = self.DAGROOT_RANK
         else:
             self.isSynced       = False
+            self.rank           = self.MAX_RANK
             
         self.gotParent          = False
         
@@ -205,8 +206,9 @@ class tag(threading.Thread):
         
         self.parent = list(self.neighbor_rank.keys())[0]
         self.rank   = list(self.neighbor_rank.values())[0]
-        if self.rank > self.MAX_RANK:
+        if self.rank >= self.MAX_RANK:
             self.rank = self.MAX_RANK
+            self.parent = None
         
     def cost(self, pdr):
     

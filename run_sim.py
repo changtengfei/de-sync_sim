@@ -44,10 +44,9 @@ def run_sim(config):
     
     joined_tag_list = []
     while len(joined_tag_list) != config['num_tags']:
-        time.sleep(1)
+        time.sleep(config['wake_delay'])
         joined_tag_list = []
         for t in tag_list:
-            print("rank ", t.get_rank())
             if t.get_rank()<t.MAX_RANK:
                 joined_tag_list.append(t)
                 
@@ -55,20 +54,27 @@ def run_sim(config):
         
     # ---- deactivate the root node
     
+    te_instance.pause_engine(True)
+    
+    tag_list[0].terminate()
+    tag_list[0].rank = t.MAX_RANK
     for neighbor in topology[0]:
         topology[0][neighbor] = 0
         tag_list[neighbor].updateparent(0, tag.tag.MAX_RANK)
+        
+    te_instance.pause_engine(False)
     
     # ---- wait until all tag de-sync or 1 hour
     
+    
     terminated_list = []
     while len(terminated_list) != config['num_tags'] and (te_instance.next_event == None or (te_instance.next_event != None and te_instance.next_event.timestamp<3600)):
-        time.sleep(1)
+        time.sleep(config['wake_delay'])
         terminated_list = []
         for t in tag_list:
-            if t.get_rank() == t.MAX_RANK:
-                print("t.get_rank()")
+            if t.get_rank() == t.MAX_RANK:                
                 terminated_list.append(t)
+                
         log.info("[exp_{0}] {1} tags reached to max rank".format(config['expId'], len(terminated_list)))
 
     # --- terminating threads
@@ -106,8 +112,10 @@ if __name__ == '__main__':
         'expId': 0,
         'pid': 0,
         'interval': 2,
-        'topology_file': "topology.json"
+        'topology_file': "topology.json",
+        'wake_delay':   0.1,
     }
+    
     run_sim(config)
 
         
