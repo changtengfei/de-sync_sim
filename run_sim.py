@@ -107,7 +107,6 @@ if __name__ == '__main__':
 
     config = {
         'expId': 0,
-        'pid': 0,
         'interval': 2,
         'topology_file': "topology.json",
         'wake_delay':   1,
