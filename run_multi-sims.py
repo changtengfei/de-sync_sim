@@ -1,8 +1,8 @@
 from run_sim    import run_sim
-                import multiprocessing
-                import itertools
-                import json
-                import os
+import multiprocessing
+import itertools
+import json
+import os
 
 def find_json_files(directory):
     json_files = []
@@ -17,7 +17,7 @@ def main():
 
     max_numCPUs         = multiprocessing.cpu_count()
     
-    config_topologies   = ["topology_100_10.json" for i in range(100)]
+    config_topologies   = ["topology/topology_100_10.json" for i in range(100)]
 
     numCPUs             = max_numCPUs
     numRuns             = len(config_topologies)
