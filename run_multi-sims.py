@@ -1,15 +1,26 @@
-from run_sim import run_sim
-import multiprocessing
-import itertools
-import json
+from run_sim    import run_sim
+                import multiprocessing
+                import itertools
+                import json
+                import os
+
+def find_json_files(directory):
+    json_files = []
+    # os.walk generates the file names in a directory tree
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.json'):
+                json_files.append(os.path.join(root, file))
+    return json_files
 
 def main():
 
     max_numCPUs         = multiprocessing.cpu_count()
-    config_topologies   = ["topology.json" for i in range(100)]
+    
+    config_topologies   = ["topology_100_10.json" for i in range(100)]
 
-    numCPUs         = max_numCPUs
-    numRuns         = len(config_topologies)
+    numCPUs             = max_numCPUs
+    numRuns             = len(config_topologies)
     if numRuns < max_numCPUs:
         numCPUs = numRuns
 
