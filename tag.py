@@ -32,7 +32,14 @@ class tag(threading.Thread):
     DAGROOT_RANK                = 256
     NAME                        = "tag_{0}"
     
-    def __init__(self, deviceId, interval, timeline_engine, topology):
+    MODE0                       = '6tisch'
+    MODE0                       = 'rapdad'      # 
+    MODE2                       = 'gw_battery'  # battery powered gateway, no need run
+    MODE3                       = 'shmg'        # single hop multiple gateway, no need run
+    
+    SYNCNESS                    = 12
+    
+    def __init__(self, deviceId, interval, timeline_engine, topology, mode='6tisch'):
     
         # initialize the parent class
         threading.Thread.__init__(self)
@@ -43,6 +50,7 @@ class tag(threading.Thread):
         self.timeline           = timeline_engine
         self.topology           = topology
         self.neighbor_rank      = {}
+        self.mode               = mode 
         
         self.parent             = None
         self.gotParent          = False
@@ -52,15 +60,19 @@ class tag(threading.Thread):
         self.dio_interval       = 2*interval
         self.next_event_time    = 0
         self.lastParentUpdateTime = 0
+        self.syncnessUpdateInterval   = 10.0 
+        self.lastSyncnessUpdate = self.next_event_time
         
         self.lastSynced         = 0
-        
+                
         if self.deviceId == 0:
             self.isSynced       = True
             self.rank           = self.DAGROOT_RANK
+            self.syncness       = self.SYNCNESS
         else:
             self.isSynced       = False
             self.rank           = self.MAX_RANK
+            self.syncness       = 0
         
         self.next_event         = None
         self.isRunning          = True
@@ -123,20 +135,38 @@ class tag(threading.Thread):
             
                 diff_time = 0
             
-                # ---- schedule EB         
+                # ---- schedule EB, DIO
+                
                 self.eb_event_time  = self.next_event_time + self.eb_interval  + random.random() 
                 self.dio_event_time = self.next_event_time + self.dio_interval + random.random()   
 
                 if self.eb_event_time>self.dio_event_time:
                     self.next_event_time = self.dio_event_time
-                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank])
+                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank, self.syncness])
                     self.next_event_time = self.eb_event_time
-                    self.sending_pkt(te.event.EVENT_T_EB)
+                    self.sending_pkt(te.event.EVENT_T_EB, [self.syncness])
                 else:
                     self.next_event_time = self.eb_event_time
-                    self.sending_pkt(te.event.EVENT_T_EB)
+                    self.sending_pkt(te.event.EVENT_T_EB, [self.syncness])
                     self.next_event_time = self.dio_event_time
-                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank])
+                    self.sending_pkt(te.event.EVENT_T_DIO, [self.rank, self.syncness])
+                    
+                if self.deviceId != 0 and self.mode == 'rapdad':
+                
+                    timePassed = self.next_event_time - self.lastSyncnessUpdate
+                    decrements = timePassed/self.syncnessUpdateInterval
+                    if self.syncness <= decrements:
+                        self.syncness = 0
+                        self.isSynced = False
+                        self.rank     = self.MAX_RANK
+                        
+                        log.info('[tag_{0}] syncness reach to zero at {1}!'.format(self.deviceId, self.next_event_time))
+                        
+                    else:
+                        self.syncness           -= decrements
+                        self.lastSyncnessUpdate += decrements*self.syncnessUpdateInterval
+                        
+                        log.info('[tag_{0}] syncness updates to {2} at {1}!'.format(self.deviceId, self.next_event_time, self.syncness))
                     
             else:
                 
@@ -181,6 +211,7 @@ class tag(threading.Thread):
                 
                     self.isSynced = True
                     self.lastSynced = event.timestamp
+                    self.syncness = self.rxPkt[1]
                     
                     log.info('[tag_{0}] Synchronized to network at {1}!'.format(self.deviceId, event.timestamp))
                 
@@ -203,11 +234,13 @@ class tag(threading.Thread):
                     
                         log.info('[tag_{0}] DIO received from {2} at {1}!'.format(self.deviceId, event.timestamp, src))
                         
-                        src, rank = self.rxPkt
+                        src, rank, syncness = self.rxPkt
                         
                         # donot process dio on dagroot
                         if self.deviceId == 0:
                             return
+                        else:
+                            self.syncness = syncness
                         
                         self.updateparent(src, rank, event.timestamp)
     

@@ -30,7 +30,7 @@ def run_sim(config):
     # tags
     tag_list = []
     for i in range(config['num_tags']):
-        t = tag.tag(i, config['interval'], te_instance, topology)
+        t = tag.tag(i, config['interval'], te_instance, topology, config['mode'])
         tag_list.append(t)
         t.start()
 
@@ -58,6 +58,9 @@ def run_sim(config):
     for neighbor in topology[0]:
         topology[0][neighbor] = 0
         tag_list[neighbor].updateparent(0, tag.tag.MAX_RANK, te_instance.next_event.timestamp)
+        
+    topology[0] = {}
+    pg.topology_update(topology)
         
     te_instance.pause_engine(False)
     
@@ -108,8 +111,9 @@ if __name__ == '__main__':
     config = {
         'expId': 0,
         'interval': 2,
-        'topology_file': "topology/topology_100_10.json",
-        'wake_delay':   1,
+        'topology_file': "topology/topology_10_5.json",
+        'wake_delay':   0.01,
+        'mode': 'rapdad'
     }
     
     run_sim(config)

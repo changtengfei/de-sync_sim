@@ -4,6 +4,8 @@ import itertools
 import json
 import os
 
+topology_name = 'topology_10_2'
+
 def find_json_files(directory):
     json_files = []
     # os.walk generates the file names in a directory tree
@@ -17,7 +19,7 @@ def main():
 
     max_numCPUs         = multiprocessing.cpu_count()
     
-    config_topologies   = ["topology/topology_100_10.json" for i in range(100)]
+    config_topologies   = ["topology/{0}.json".format(topology_name) for i in range(10)]
 
     numCPUs             = max_numCPUs
     numRuns             = len(config_topologies)
@@ -34,6 +36,7 @@ def main():
                 'interval': 2,
                 'topology_file': topology,
                 'wake_delay':   0,
+                'mode': 'rapdad'
             } for [expId, topology] in enumerate(config_topologies)
         ]
     )
@@ -41,7 +44,7 @@ def main():
     results = async_results.get()
     print("Final result = {0}".format(results))
     # ======================= store to file ===================================
-    with open("result/results.json", 'w') as f:
+    with open("result/results_{0}_{1}.json".format(topology_name.split('_')[1], topology_name.split('_')[2]), 'w') as f:
         json.dump(results, f, indent=4)
 
 if __name__ == '__main__':

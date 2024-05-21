@@ -35,6 +35,10 @@ class propagation(threading.Thread):
         self.timeline.QueueFullNotify.set()
         self.isRunning = False
         
+    def topology_update(self, topology):
+    
+        self.topology = topology
+        
     def run(self):
     
         
