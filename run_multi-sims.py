@@ -48,7 +48,7 @@ def main():
     results = async_results.get()
     print("Final result = {0}".format(results))
     # ======================= store to file ===================================
-    with open("result/results_{0}_{1}.json".format(topology_name.split('_')[1], topology_name.split('_')[2]), 'w') as f:
+    with open("result/results.json", 'w') as f:
         json.dump(results, f, indent=4)
 
 if __name__ == '__main__':

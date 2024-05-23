@@ -15,6 +15,7 @@ def run_sim(config):
                         
     result          = {}
     result['expId'] = config['expId']
+    result['topo']  = config['topology_file']
     
     # get topology
     with open(config['topology_file'], 'r') as topo:
@@ -97,15 +98,12 @@ def run_sim(config):
 
     te_instance.terminate()
     print('timeline ends')
+    
+    result['time_to_desync'] = te_instance.next_event.timestamp
 
     # ======================= get result from each tags =====================
 
     # ==== summary
-
-    result = {
-        'expId'                 : config['expId'],
-        'time_to_desync'        : te_instance.next_event.timestamp,
-    }
     
     print("exp ends at {0}s".format(result['time_to_desync']))
 
