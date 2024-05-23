@@ -16,6 +16,7 @@ def run_sim(config):
     result          = {}
     result['expId'] = config['expId']
     result['topo']  = config['topology_file']
+    result['mode']  = config['mode']
     
     # get topology
     with open(config['topology_file'], 'r') as topo:
@@ -24,8 +25,8 @@ def run_sim(config):
         
     topology = {int(outer_key): {int(inner_key): value for inner_key, value in inner_values.items()}
                         for outer_key, inner_values in topology.items()}
-        
-    print('run exp using {0}'.format(config['topology_file']))
+    
+    log.info("[exp_{0}] run using {1}".format(config['expId'], config['topology_file']))
 
     # time enginee
     te_instance = te.timelineEngine(config['num_tags'])
@@ -89,15 +90,15 @@ def run_sim(config):
     pg.terminate()
     while pg.is_alive():
         pass
-    print('propagation ends')
+    log.info("[exp_{0}] propagation ends".format(config['expId']))
 
     # tags
     for t in tag_list:
         t.terminate()
-    print('tags ends')
+    log.info("[exp_{0}] tags ends".format(config['expId']))
 
     te_instance.terminate()
-    print('timeline ends')
+    log.info("[exp_{0}] timeline ends".format(config['expId']))
     
     result['time_to_desync'] = te_instance.next_event.timestamp
 
@@ -105,7 +106,7 @@ def run_sim(config):
 
     # ==== summary
     
-    print("exp ends at {0}s".format(result['time_to_desync']))
+    print("exp {1} ends at {0}s under {2} mode using topo {3}".format(result['time_to_desync'], config['expId'], config['mode'], config['topology_file']))
 
     return result
 
@@ -114,9 +115,9 @@ if __name__ == '__main__':
     config = {
         'expId': 0,
         'interval': 2,
-        'topology_file': "topology/topology_100_50.json",
+        'topology_file': "topology/topology_10_5.json",
         'wake_delay':   0.01,
-        'mode': 'rapdad'
+        'mode': '6tisch'
     }
     
     run_sim(config)

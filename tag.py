@@ -105,12 +105,15 @@ class tag(threading.Thread):
         return self.num_beacon_to_send
 
     def syncness_reset(self):
-        self.syncness = 0
-        self.isSynced = False
-        self.rank     = self.MAX_RANK
-        self.gotParent = False
-        
-        log.info('[tag_{0}] syncness reach to zero at {1}!'.format(self.deviceId, self.next_event_time))
+    
+        if self.mode == 'rapdad':
+    
+            self.syncness = 0
+            self.isSynced = False
+            self.rank     = self.MAX_RANK
+            self.gotParent = False
+            
+            log.info('[tag_{0}] syncness reach to zero at {1}!'.format(self.deviceId, self.next_event_time))
         
     def sending_pkt(self, eventType, payload=[]):
         

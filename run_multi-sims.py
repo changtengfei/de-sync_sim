@@ -40,7 +40,7 @@ def main():
                 'interval': 2,
                 'topology_file': topology,
                 'wake_delay':   0,
-                'mode': 'rapdad'
+                'mode': '6tisch'
             } for [expId, topology] in enumerate(config_topologies)
         ]
     )
