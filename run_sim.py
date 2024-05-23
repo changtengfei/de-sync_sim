@@ -12,8 +12,11 @@ def run_sim(config):
     logging.basicConfig(filename='simlog_exp_{0}.log'.format(config['expId']),
                         format='[exp_{0}][%(levelname)s]:%(message)s'.format(config['expId']),
                         level=logging.INFO)
+                        
+    result          = {}
+    result['expId'] = config['expId']
     
-    # topology
+    # get topology
     with open(config['topology_file'], 'r') as topo:
         topology = json.load(topo)
         config['num_tags'] = len(topology)
@@ -49,6 +52,8 @@ def run_sim(config):
                 joined_tag_list.append(t)
                 
         log.info("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
+        
+    result['time_to_sync'] = te_instance.next_event.timestamp
         
     # ---- deactivate the root node
     

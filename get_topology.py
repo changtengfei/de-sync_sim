@@ -7,7 +7,11 @@ def generate_network_topology(num_nodes, max_neighbors):
 
     for node in range(num_nodes):
         # Randomly decide how many neighbors this node will have (at least one)
-        num_neighbors = random.randint(1, min(max_neighbors, num_nodes - 1))
+        if num_nodes == max_neighbors:
+            num_neighbors = num_nodes - 1
+        else:
+            num_neighbors = random.randint(1, min(max_neighbors, num_nodes - 1))
+        
         neighbors = random.sample([n for n in range(num_nodes) if n != node], num_neighbors)
 
         for neighbor in neighbors:
@@ -19,8 +23,8 @@ def generate_network_topology(num_nodes, max_neighbors):
     return topology
 
 # Example usage
-num_nodes       = 30  # Number of nodes in the network
-max_neighbors   = 10   # Maximum neighbors a node can have
+num_nodes       = 500  # Number of nodes in the network
+max_neighbors   = 100   # Maximum neighbors a node can have
 json_topology   = generate_network_topology(num_nodes, max_neighbors)
 
 with open("topology_{0}_{1}.json".format(num_nodes, max_neighbors), 'w') as json_file:
