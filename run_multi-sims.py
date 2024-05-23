@@ -19,7 +19,11 @@ def main():
 
     max_numCPUs         = multiprocessing.cpu_count()
     
-    config_topologies   = ["topology/{0}.json".format(topology_name) for i in range(10)]
+    topos               = find_json_files('topology')
+    config_topologies   = []
+    
+    for topo in topos:
+        config_topologies += [topo for i in range(10)]
 
     numCPUs             = max_numCPUs
     numRuns             = len(config_topologies)
