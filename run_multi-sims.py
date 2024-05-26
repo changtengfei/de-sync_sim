@@ -4,8 +4,6 @@ import itertools
 import json
 import os
 
-topology_name = 'topology_10_2'
-
 def find_json_files(directory):
     json_files = []
     # os.walk generates the file names in a directory tree

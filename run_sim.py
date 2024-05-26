@@ -56,7 +56,27 @@ def run_sim(config):
         log.info("[exp_{0}] {1} tags joined network".format(config['expId'], len(joined_tag_list)))
         
     result['time_to_sync'] = te_instance.next_event.timestamp
+    
+    print("exp {0} deactive root at {1} under {2} mode using topo {3}".format(config['expId'], result['time_to_sync'], config['mode'], config['topology_file']))
         
+    # ---- wait until have received DIOs from other neighbors
+    
+    multi_neighbors_tag_list = []
+    while len(multi_neighbors_tag_list) != config['num_tags']:
+        time.sleep(config['wake_delay'])
+        multi_neighbors_tag_list = []
+        for t in tag_list:
+            if len(t.neighbor_rank)>=2:
+                multi_neighbors_tag_list.append(t)
+            elif t.deviceId == 0:
+                multi_neighbors_tag_list.append(t)
+                
+        log.info("[exp_{0}] {1} tags has more than 2 neighbors".format(config['expId'], len(multi_neighbors_tag_list)))
+        
+    result['network_established'] = te_instance.next_event.timestamp    
+    
+    print("exp {0} network established at {1} under {2} mode using topo {3}".format(config['expId'], result['network_established'], config['mode'], config['topology_file']))
+    
     # ---- deactivate the root node
     
     te_instance.pause_engine(True)
@@ -115,9 +135,9 @@ if __name__ == '__main__':
     config = {
         'expId': 0,
         'interval': 2,
-        'topology_file': "topology/topology_10_5.json",
+        'topology_file': "topology/topology_100_100.json",
         'wake_delay':   0.01,
-        'mode': '6tisch'
+        'mode': 'rapdad'
     }
     
     run_sim(config)
