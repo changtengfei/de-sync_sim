@@ -274,6 +274,8 @@ class tag(threading.Thread):
     
         if len(self.topology[src])>0:
             pdr = self.topology[src][self.deviceId]
+        else:
+            pdr = 0
     
         self.neighbor_rank[src] = rank + self.cost(pdr)
         self.neighbor_rank      = dict(sorted(self.neighbor_rank.items(), key=lambda item: item[1]))

@@ -73,7 +73,7 @@ def run_sim(config):
                 
         log.info("[exp_{0}] {1} tags has more than 2 neighbors".format(config['expId'], len(multi_neighbors_tag_list)))
         
-    result['network_established'] = te_instance.next_event.timestamp    
+    result['network_established'] = te_instance.next_event.timestamp
     
     print("exp {0} network established at {1} under {2} mode using topo {3}".format(config['expId'], result['network_established'], config['mode'], config['topology_file']))
     
@@ -92,7 +92,6 @@ def run_sim(config):
     te_instance.pause_engine(False)
     
     # ---- wait until all tag de-sync or 1 hour
-    
     
     terminated_list = []
     while len(terminated_list) != config['num_tags'] and (te_instance.next_event == None or (te_instance.next_event != None and te_instance.next_event.timestamp<3600)):

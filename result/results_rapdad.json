@@ -2,301 +2,401 @@
     {
         "expId": 0,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.73158381381043,
-        "time_to_desync": 165.5818334882757
+        "mode": "rapdad",
+        "time_to_sync": 70.9338080567383,
+        "network_established": 100.23244702509469,
+        "time_to_desync": 186.24782189053096
     },
     {
         "expId": 1,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.95044037412742,
-        "time_to_desync": 165.95524798447514
+        "mode": "rapdad",
+        "time_to_sync": 70.8824362089565,
+        "network_established": 100.55968703006128,
+        "time_to_desync": 205.54437508511504
     },
     {
         "expId": 2,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.48768034025869,
-        "time_to_desync": 165.93131422749042
+        "mode": "rapdad",
+        "time_to_sync": 70.83786763173109,
+        "network_established": 100.21160200014099,
+        "time_to_desync": 186.45613808285754
     },
     {
         "expId": 3,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.91372914251495,
-        "time_to_desync": 165.94186265572995
+        "mode": "rapdad",
+        "time_to_sync": 70.86566186630517,
+        "network_established": 100.12395929005443,
+        "time_to_desync": 187.0951599134451
     },
     {
         "expId": 4,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.8017842388394,
-        "time_to_desync": 166.20073030544407
+        "mode": "rapdad",
+        "time_to_sync": 70.95989957331547,
+        "network_established": 100.33770904089675,
+        "time_to_desync": 186.91759049269677
     },
     {
         "expId": 5,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.6527431489854,
-        "time_to_desync": 166.35077826612942
+        "mode": "rapdad",
+        "time_to_sync": 70.95020128292131,
+        "network_established": 100.21995261019707,
+        "time_to_desync": 186.33002313489254
     },
     {
         "expId": 6,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.89851094202682,
-        "time_to_desync": 165.78275123512833
+        "mode": "rapdad",
+        "time_to_sync": 70.83636654186792,
+        "network_established": 100.21433642335701,
+        "time_to_desync": 187.15950641680033
     },
     {
         "expId": 7,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.690692737126,
-        "time_to_desync": 166.26916605026125
+        "mode": "rapdad",
+        "time_to_sync": 70.87685805533434,
+        "network_established": 100.21863850843303,
+        "time_to_desync": 187.33498772297798
     },
     {
         "expId": 8,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.91154080363131,
-        "time_to_desync": 165.45012976158142
+        "mode": "rapdad",
+        "time_to_sync": 70.9354004447694,
+        "network_established": 100.27103745455146,
+        "time_to_desync": 187.32283581981466
     },
     {
         "expId": 9,
         "topo": "topology\\topology_100_10.json",
-        "time_to_sync": 70.66308080292018,
-        "time_to_desync": 166.47001390462515
+        "mode": "rapdad",
+        "time_to_sync": 70.77418911925311,
+        "network_established": 100.37308394868482,
+        "time_to_desync": 187.1342266264577
     },
     {
         "expId": 10,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.005018308474215,
-        "time_to_desync": 14.613650235677369
+        "mode": "rapdad",
+        "time_to_sync": 10.533837599449297,
+        "network_established": 40.01124699198446,
+        "time_to_desync": 125.77978868210492
     },
     {
         "expId": 11,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.057944985413123,
-        "time_to_desync": 14.756848765975493
+        "mode": "rapdad",
+        "time_to_sync": 10.685745173689234,
+        "network_established": 40.01188763318853,
+        "time_to_desync": 125.81921236189653
     },
     {
         "expId": 12,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.699585730607929,
-        "time_to_desync": 14.838508494699864
+        "mode": "rapdad",
+        "time_to_sync": 10.12660174828687,
+        "network_established": 40.014054411844256,
+        "time_to_desync": 126.30824568704335
     },
     {
         "expId": 13,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.551275090094327,
-        "time_to_desync": 14.89825814759847
+        "mode": "rapdad",
+        "time_to_sync": 10.15496780832922,
+        "network_established": 40.011767952388695,
+        "time_to_desync": 126.01784411223463
     },
     {
         "expId": 14,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.976602850016931,
-        "time_to_desync": 15.426807299891209
+        "mode": "rapdad",
+        "time_to_sync": 10.295612252077104,
+        "network_established": 40.01493478610755,
+        "time_to_desync": 126.24962979600794
     },
     {
         "expId": 15,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 14.584883480953074,
-        "time_to_desync": 20
+        "mode": "rapdad",
+        "time_to_sync": 10.121887589350942,
+        "network_established": 40.01130226931851,
+        "time_to_desync": 126.2687401647569
     },
     {
         "expId": 16,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.803657445684381,
-        "time_to_desync": 14.88702912862948
+        "mode": "rapdad",
+        "time_to_sync": 10.470886315704599,
+        "network_established": 40.00718245393836,
+        "time_to_desync": 126.11626656154176
     },
     {
         "expId": 17,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.072114288156497,
-        "time_to_desync": 14.510771069259564
+        "mode": "rapdad",
+        "time_to_sync": 10.055438758230641,
+        "network_established": 40.04645235935065,
+        "time_to_desync": 126.14583120906927
     },
     {
         "expId": 18,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.018809142414534,
-        "time_to_desync": 14.420965190225337
+        "mode": "rapdad",
+        "time_to_sync": 10.885241902978876,
+        "network_established": 40.02325134244395,
+        "time_to_desync": 126.27552925093855
     },
     {
         "expId": 19,
         "topo": "topology\\topology_100_100.json",
-        "time_to_sync": 10.691115391668557,
-        "time_to_desync": 15.280445962917293
+        "mode": "rapdad",
+        "time_to_sync": 10.869521996062032,
+        "network_established": 40.007763065290895,
+        "time_to_desync": 126.6178947534673
     },
     {
         "expId": 20,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.13859637492052,
-        "time_to_desync": 125.48096690469411
+        "mode": "rapdad",
+        "time_to_sync": 40.07240696859193,
+        "network_established": 40.141749462986134,
+        "time_to_desync": 126.4552453185055
     },
     {
         "expId": 21,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.16347662074285,
-        "time_to_desync": 132.14521543424982
+        "mode": "rapdad",
+        "time_to_sync": 40.15177541907394,
+        "network_established": 40.28604845484623,
+        "time_to_desync": 125.69174073946026
     },
     {
         "expId": 22,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.16828899660798,
-        "time_to_desync": 125.94898525739038
+        "mode": "rapdad",
+        "time_to_sync": 40.15379043005261,
+        "network_established": 40.28802815271243,
+        "time_to_desync": 125.8989678960807
     },
     {
         "expId": 23,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.13318086458593,
-        "time_to_desync": 125.92529543333272
+        "mode": "rapdad",
+        "time_to_sync": 40.14992447452502,
+        "network_established": 40.32931430751693,
+        "time_to_desync": 125.25331782212852
     },
     {
         "expId": 24,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.12322052799379,
-        "time_to_desync": 125.9444466301573
+        "mode": "rapdad",
+        "time_to_sync": 40.2160688036815,
+        "network_established": 40.33795174438753,
+        "time_to_desync": 125.5516270398325
     },
     {
         "expId": 25,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.19715525192902,
-        "time_to_desync": 125.94902812862414
+        "mode": "rapdad",
+        "time_to_sync": 40.1047977865288,
+        "network_established": 40.294220830262596,
+        "time_to_desync": 125.66868257269371
     },
     {
         "expId": 26,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.246035685880365,
-        "time_to_desync": 125.81594925468025
+        "mode": "rapdad",
+        "time_to_sync": 40.21848112899778,
+        "network_established": 40.34552953866899,
+        "time_to_desync": 125.69111782824369
     },
     {
         "expId": 27,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.13149973972152,
-        "time_to_desync": 126.56845065330923
+        "mode": "rapdad",
+        "time_to_sync": 40.24895633965991,
+        "network_established": 40.31336646831432,
+        "time_to_desync": 125.43839795209301
     },
     {
         "expId": 28,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.132123947839936,
-        "time_to_desync": 125.02747535542481
+        "mode": "rapdad",
+        "time_to_sync": 40.13526410449398,
+        "network_established": 40.24784224171185,
+        "time_to_desync": 125.22826824424708
     },
     {
         "expId": 29,
         "topo": "topology\\topology_100_50.json",
-        "time_to_sync": 40.09430875910421,
-        "time_to_desync": 126.08557075602786
+        "mode": "rapdad",
+        "time_to_sync": 40.3931560302508,
+        "network_established": 40.415449882103886,
+        "time_to_desync": 126.00942642842463
     },
     {
         "expId": 30,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.436455382477355,
-        "time_to_desync": 125.48720867219217
+        "mode": "rapdad",
+        "time_to_sync": 40.52659958751438,
+        "network_established": 40.78043935390564,
+        "time_to_desync": 124.10992308284496
     },
     {
         "expId": 31,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.4726018490788,
-        "time_to_desync": 123.92068167831452
+        "mode": "rapdad",
+        "time_to_sync": 40.18062062720272,
+        "network_established": 40.54443124177963,
+        "time_to_desync": 119.00337257471033
     },
     {
         "expId": 32,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.99376230423614,
-        "time_to_desync": 124.43011536293636
+        "mode": "rapdad",
+        "time_to_sync": 40.751221659453535,
+        "network_established": 40.90282124910625,
+        "time_to_desync": 126.5396663681271
     },
     {
         "expId": 33,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.6262105519484,
-        "time_to_desync": 124.9827506466638
+        "mode": "rapdad",
+        "time_to_sync": 40.42134016921969,
+        "network_established": 40.577326864639645,
+        "time_to_desync": 125.07474897206983
     },
     {
         "expId": 34,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 45.00011635956253,
-        "time_to_desync": 125.08174815475282
+        "mode": "rapdad",
+        "time_to_sync": 40.15538904072791,
+        "network_established": 40.77541936700735,
+        "time_to_desync": 127.21439747530708
     },
     {
         "expId": 35,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.471944232695975,
-        "time_to_desync": 126.21157141953294
+        "mode": "rapdad",
+        "time_to_sync": 40.88572576856217,
+        "network_established": 40.929369358294686,
+        "time_to_desync": 125.04694600604716
     },
     {
         "expId": 36,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.19791168487265,
-        "time_to_desync": 119.01344859782368
+        "mode": "rapdad",
+        "time_to_sync": 40.584859371797336,
+        "network_established": 40.612394858360645,
+        "time_to_desync": 125.46278801247969
     },
     {
         "expId": 37,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.815512085123025,
-        "time_to_desync": 126.23330759693015
+        "mode": "rapdad",
+        "time_to_sync": 40.67549505761096,
+        "network_established": 40.90741108174339,
+        "time_to_desync": 125.2535390929706
     },
     {
         "expId": 38,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.64217970257743,
-        "time_to_desync": 125.88501302777819
+        "mode": "rapdad",
+        "time_to_sync": 40.46743676249648,
+        "network_established": 40.602801700063964,
+        "time_to_desync": 125.12053460008325
     },
     {
         "expId": 39,
         "topo": "topology\\topology_10_5.json",
-        "time_to_sync": 40.596555943770916,
-        "time_to_desync": 124.3604631435079
+        "mode": "rapdad",
+        "time_to_sync": 40.66801849276194,
+        "network_established": 41.44596388280911,
+        "time_to_desync": 125.5031054633602
     },
     {
         "expId": 40,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.00689660815306,
-        "time_to_desync": 166.84234558114537
+        "mode": "rapdad",
+        "time_to_sync": 70.00286950735824,
+        "network_established": 70.06995486692568,
+        "time_to_desync": 166.84325763802144
     },
     {
         "expId": 41,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.01445684874226,
-        "time_to_desync": 167.72978580765155
+        "mode": "rapdad",
+        "time_to_sync": 70.12121252849502,
+        "network_established": 70.13395646302033,
+        "time_to_desync": 167.00536419673617
     },
     {
         "expId": 42,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.12191116260738,
-        "time_to_desync": 166.6519624218719
+        "mode": "rapdad",
+        "time_to_sync": 70.01220385847849,
+        "network_established": 70.16676259007858,
+        "time_to_desync": 167.1645895774205
     },
     {
         "expId": 43,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.02211107501154,
-        "time_to_desync": 168.1207372914788
+        "mode": "rapdad",
+        "time_to_sync": 70.14992266518796,
+        "network_established": 70.20975287102004,
+        "time_to_desync": 166.72203363206623
     },
     {
         "expId": 44,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.10294570330582,
-        "time_to_desync": 167.395157833318
+        "mode": "rapdad",
+        "time_to_sync": 70.08407063761152,
+        "network_established": 70.099676531588,
+        "time_to_desync": 174.71242062447158
     },
     {
         "expId": 45,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.03537498038295,
-        "time_to_desync": 166.79166885539922
+        "mode": "rapdad",
+        "time_to_sync": 70.02143091732506,
+        "network_established": 70.11215770360195,
+        "time_to_desync": 168.15061573116975
     },
     {
         "expId": 46,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.0625203501728,
-        "time_to_desync": 166.49496383063288
+        "mode": "rapdad",
+        "time_to_sync": 70.01125312799292,
+        "network_established": 70.06842811168197,
+        "time_to_desync": 167.52037070724586
     },
     {
         "expId": 47,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.04887263211491,
-        "time_to_desync": 166.97004680932645
+        "mode": "rapdad",
+        "time_to_sync": 70.03522101193306,
+        "network_established": 70.08958146164197,
+        "time_to_desync": 174.52958209402811
     },
     {
         "expId": 48,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.03304985026236,
-        "time_to_desync": 158.09212689656945
+        "mode": "rapdad",
+        "time_to_sync": 70.06697041013855,
+        "network_established": 70.1409412241661,
+        "time_to_desync": 167.58219417333456
     },
     {
         "expId": 49,
         "topo": "topology\\topology_500_50.json",
-        "time_to_sync": 70.07522934327821,
-        "time_to_desync": 166.74813478483202
+        "mode": "rapdad",
+        "time_to_sync": 70.10561720792924,
+        "network_established": 70.11398372826497,
+        "time_to_desync": 167.03709439649026
     }
 ]
