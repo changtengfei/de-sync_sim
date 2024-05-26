@@ -1,0 +1,502 @@
+[
+    {
+        "time_to_desync": 3600.0228318824184, 
+        "expId": 0, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.2869465662443, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.78789345462897
+    }, 
+    {
+        "time_to_desync": 3600.096793439711, 
+        "expId": 1, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.10722472786385, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.87405146691097
+    }, 
+    {
+        "time_to_desync": 3600.384222033885, 
+        "expId": 2, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.31086232071577, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.62997853994862
+    }, 
+    {
+        "time_to_desync": 3600.052164740851, 
+        "expId": 3, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.05571953410592, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.73776513393935
+    }, 
+    {
+        "time_to_desync": 3600.1923370648674, 
+        "expId": 4, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.40512530519061, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.95102813003773
+    }, 
+    {
+        "time_to_desync": 3600.223916615079, 
+        "expId": 5, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.46727188489378, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.87663918368277
+    }, 
+    {
+        "time_to_desync": 3600.0380259604303, 
+        "expId": 6, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.4086170034763, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.56086633564973
+    }, 
+    {
+        "time_to_desync": 3600.016396947945, 
+        "expId": 7, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.44786761518883, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.86458260306067
+    }, 
+    {
+        "time_to_desync": 3600.1920808993846, 
+        "expId": 8, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.18552224639917, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.57179990383099
+    }, 
+    {
+        "time_to_desync": 3579.1381289623046, 
+        "expId": 9, 
+        "topo": "topology\\topology_100_10.json", 
+        "connectivity": 1.0, 
+        "network_established": 100.0833843693143, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.85953992528614
+    }, 
+    {
+        "time_to_desync": 3600.0566053173366, 
+        "expId": 10, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.02415533168057, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.816659541960622
+    }, 
+    {
+        "time_to_desync": 3600.0216160373825, 
+        "expId": 11, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.01087993556883, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.034620268320792
+    }, 
+    {
+        "time_to_desync": 3600.0428091011286, 
+        "expId": 12, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.0289363626134, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.25366240756444
+    }, 
+    {
+        "time_to_desync": 3600.0567091567395, 
+        "expId": 13, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.0195648749584, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.064245089264945
+    }, 
+    {
+        "time_to_desync": 3600.0245524740226, 
+        "expId": 14, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.01243943073528, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.449991233260308
+    }, 
+    {
+        "time_to_desync": 3600.0561052595513, 
+        "expId": 15, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.01168365611077, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.412707206897748
+    }, 
+    {
+        "time_to_desync": 3600.045398371891, 
+        "expId": 16, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.017361332262354, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.054308475405055
+    }, 
+    {
+        "time_to_desync": 3600.060649654504, 
+        "expId": 17, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.04678288393348, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.983973513567053
+    }, 
+    {
+        "time_to_desync": 3600.0539672770064, 
+        "expId": 18, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.01865286132791, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.094940695182595
+    }, 
+    {
+        "time_to_desync": 3600.0621701473247, 
+        "expId": 19, 
+        "topo": "topology\\topology_100_100.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.01053705261543, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 10.90993217485723
+    }, 
+    {
+        "time_to_desync": 3600.04318950324, 
+        "expId": 20, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.215618838401454, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.1907515927218
+    }, 
+    {
+        "time_to_desync": 3600.0119449595186, 
+        "expId": 21, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.345148786178896, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.32303045117879
+    }, 
+    {
+        "time_to_desync": 3600.1810558625716, 
+        "expId": 22, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.29396274662778, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.270998243895846
+    }, 
+    {
+        "time_to_desync": 3600.030261985708, 
+        "expId": 23, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.29770530072724, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.22721325354925
+    }, 
+    {
+        "time_to_desync": 3600.0116007610523, 
+        "expId": 24, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.45284103544022, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.32412161429203
+    }, 
+    {
+        "time_to_desync": 3600.057619747972, 
+        "expId": 25, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.17558638417232, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.13389599563668
+    }, 
+    {
+        "time_to_desync": 3600.246448154824, 
+        "expId": 26, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.24295567877383, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.07179450792677
+    }, 
+    {
+        "time_to_desync": 3600.009760935705, 
+        "expId": 27, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.344190695276005, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.232693454415
+    }, 
+    {
+        "time_to_desync": 3600.031806492848, 
+        "expId": 28, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.28020550908883, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.05646699841695
+    }, 
+    {
+        "time_to_desync": 3600.029580465643, 
+        "expId": 29, 
+        "topo": "topology\\topology_100_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.31193365827994, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.24251403910182
+    }, 
+    {
+        "time_to_desync": 2163.3854625072713, 
+        "expId": 30, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.97670908574181, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.704376249290625
+    }, 
+    {
+        "time_to_desync": 1974.1714812446687, 
+        "expId": 31, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.78182256630024, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.36301199705309
+    }, 
+    {
+        "time_to_desync": 1904.177569189951, 
+        "expId": 32, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.630587785408515, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.59740288545671
+    }, 
+    {
+        "time_to_desync": 2124.9900987438714, 
+        "expId": 33, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.7278636350705, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.10155264468958
+    }, 
+    {
+        "time_to_desync": 1942.0273879745516, 
+        "expId": 34, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.96994237185799, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.86270203659323
+    }, 
+    {
+        "time_to_desync": 2028.573495489, 
+        "expId": 35, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.763757209720005, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.62494337844401
+    }, 
+    {
+        "time_to_desync": 2000.1992454018368, 
+        "expId": 36, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.990063767919935, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.7518827502754
+    }, 
+    {
+        "time_to_desync": 1858.0516034075988, 
+        "expId": 37, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.76799926746053, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.47869051277765
+    }, 
+    {
+        "time_to_desync": 2112.7312117953743, 
+        "expId": 38, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.92960420294915, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.32740946690492
+    }, 
+    {
+        "time_to_desync": 1887.3695914646876, 
+        "expId": 39, 
+        "topo": "topology\\topology_10_5.json", 
+        "connectivity": 1.0, 
+        "network_established": 40.977325651812585, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 40.49577793935824
+    }, 
+    {
+        "time_to_desync": 3600.0432576380213, 
+        "expId": 40, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.06995486692568, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.00286950735824
+    }, 
+    {
+        "time_to_desync": 3600.005364196736, 
+        "expId": 41, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.13395646302033, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.12121252849502
+    }, 
+    {
+        "time_to_desync": 3600.0645895774205, 
+        "expId": 42, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.16676259007858, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.01220385847849
+    }, 
+    {
+        "time_to_desync": 3600.0220336320663, 
+        "expId": 43, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.20975287102004, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.14992266518796
+    }, 
+    {
+        "time_to_desync": 3600.0124206244714, 
+        "expId": 44, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.099676531588, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.08407063761152
+    }, 
+    {
+        "time_to_desync": 3600.0506157311697, 
+        "expId": 45, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.11215770360195, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.02143091732506
+    }, 
+    {
+        "time_to_desync": 3600.020370707246, 
+        "expId": 46, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.06842811168197, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.01125312799292
+    }, 
+    {
+        "time_to_desync": 3600.0295820940282, 
+        "expId": 47, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.08958146164197, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.03522101193306
+    }, 
+    {
+        "time_to_desync": 3600.0821941733348, 
+        "expId": 48, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.1409412241661, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.06697041013855
+    }, 
+    {
+        "time_to_desync": 3600.030261985708, 
+        "expId": 49, 
+        "topo": "topology\\topology_500_50.json", 
+        "connectivity": 1.0, 
+        "network_established": 70.11398372826497, 
+        "mode": "6tisch", 
+        "extra_cost": 10, 
+        "time_to_sync": 70.10561720792924
+    }
+]
