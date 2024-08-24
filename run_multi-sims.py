@@ -3,6 +3,7 @@ import multiprocessing
 import itertools
 import json
 import os
+import datetime
 
 def find_json_files(directory):
     json_files = []
@@ -38,7 +39,7 @@ def main():
                 'interval': 2,
                 'topology_file': topology,
                 'wake_delay':   0,
-                'mode': 'rapdad'
+                'mode': 'mRPL/mRPL+'
             } for [expId, topology] in enumerate(config_topologies)
         ]
     )
@@ -50,5 +51,8 @@ def main():
         json.dump(results, f, indent=4)
 
 if __name__ == '__main__':
+
+    now = datetime.datetime.now()
+    print(now.time())
 
     main()

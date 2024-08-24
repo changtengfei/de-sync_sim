@@ -25,6 +25,9 @@ with open('results_rapdad.json') as f:
 
 with open('results_shmg.json') as f:
     data_shmg = json.load(f)
+    
+with open('results_mrpl.json') as f:
+    data_mrpl = json.load(f)
 
 # Correcting the extraction function to include the 'topo' field
 def extract_data_with_topo(data, mode):
@@ -40,9 +43,10 @@ df_6tisch = extract_data_with_topo(data_6tisch, '6tisch')
 df_bg_synced = extract_data_with_topo(data_bg_synced, 'bg_synced')
 df_rapdad = extract_data_with_topo(data_rapdad, 'rapdad')
 df_shmg = extract_data_with_topo(data_shmg, 'shmg')
+df_mrpl = extract_data_with_topo(data_mrpl, 'mrpl')
 
 # Combine all data into a single DataFrame
-df = pd.concat([df_6tisch, df_bg_synced, df_rapdad, df_shmg])
+df = pd.concat([df_6tisch, df_bg_synced, df_rapdad, df_shmg, df_mrpl])
 
 # Desired order of topologies
 topo_order = ['topology\\topology_10_5.json', 
@@ -81,7 +85,7 @@ def plot_with_lines_and_save(data, y_label, title, y_mean_col, y_std_col, filena
     ax.set_ylabel(y_label)
     # ax.set_title(title)
     ax.legend()
-    plt.savefig(f"../../figures/{filename}.png")
+    plt.savefig(f"../figures/{filename}.png")
     plt.close()
 
 # Plotting and saving each figure as a PDF

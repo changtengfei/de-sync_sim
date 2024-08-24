@@ -27,15 +27,19 @@ class tag(threading.Thread):
     TX_RX_TURNAROUND_TIME       = 0.001
     
     PARENT_UPDATE_PERIOD        = 60
+    PROBING_WINDOWN_SIZE        = 30 # assume 1 probing packet per second and use 10
     
     MAX_RANK                    = 65536
     DAGROOT_RANK                = 256
     NAME                        = "tag_{0}"
     
     MODE0                       = '6tisch'
-    MODE0                       = 'rapdad'      # 
-    MODE2                       = 'gw_battery'  # battery powered gateway, no need run
-    MODE3                       = 'shmg'        # single hop multiple gateway, no need run
+    MODE1                       = 'rapdad'          # 
+    MODE2                       = 'gw_battery'      # battery powered gateway, no need run
+    MODE3                       = 'shmg'            # single hop multiple gateway, no need run
+    MODE4                       = 'enhanced-shmg'   # https://ieeexplore.ieee.org/document/10400816/footnotes#footnotes
+    MODE5                       = 'mRPL/mRPL+'          # https://doi.org/10.1016/j.adhoc.2014.10.009
+    MODE6                       = 'mobility-joining'    # https://ieeexplore.ieee.org/document/9843205
     
     SYNCNESS                    = 12
     
@@ -202,9 +206,14 @@ class tag(threading.Thread):
                     
                     log.info('[tag_{0}] syncness updates to {2} at {1}!'.format(self.deviceId, self.next_event_time, self.syncness))
                 
-            # update parent if not hear DIO from parent for PARENT_UPDATE_PERIOD seconds
+            # update parent if not hear DIO from parent for update_period seconds
             
-            if self.next_event_time - self.lastParentUpdateTime > self.PARENT_UPDATE_PERIOD:
+            if self.mode == 'mRPL/mRPL+':
+                update_period = self.PROBING_WINDOWN_SIZE
+            else:
+                update_period = self.PARENT_UPDATE_PERIOD
+            
+            if self.next_event_time - self.lastParentUpdateTime > update_period:
                 
                 if self.gotParent:
                     
