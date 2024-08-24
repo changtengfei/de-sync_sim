@@ -28,6 +28,9 @@ with open('results_shmg.json') as f:
     
 with open('results_mrpl.json') as f:
     data_mrpl = json.load(f)
+    
+with open('results_enhanced_shmg.json') as f:
+    data_enhanced_shmg = json.load(f)
 
 # Correcting the extraction function to include the 'topo' field
 def extract_data_with_topo(data, mode):
@@ -44,9 +47,10 @@ df_bg_synced = extract_data_with_topo(data_bg_synced, 'bg_synced')
 df_rapdad = extract_data_with_topo(data_rapdad, 'rapdad')
 df_shmg = extract_data_with_topo(data_shmg, 'shmg')
 df_mrpl = extract_data_with_topo(data_mrpl, 'mrpl')
+df_enhanced_shmg = extract_data_with_topo(data_enhanced_shmg, 'enhanced_shmg')
 
 # Combine all data into a single DataFrame
-df = pd.concat([df_6tisch, df_bg_synced, df_rapdad, df_shmg, df_mrpl])
+df = pd.concat([df_6tisch, df_bg_synced, df_rapdad, df_shmg, df_mrpl, df_enhanced_shmg])
 
 # Desired order of topologies
 topo_order = ['topology\\topology_10_5.json', 
